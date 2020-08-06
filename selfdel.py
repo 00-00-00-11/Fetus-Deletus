@@ -11,7 +11,7 @@ import re
 import requests
 
 init()
-app_version = 'v1.0.24'
+app_version = 'v1.0.25'
 
 if getattr(sys, 'frozen', False):
     application_path = os.path.dirname(sys.executable)
@@ -52,7 +52,7 @@ else:
     wlines = open(wfile).read().split('\n')
 
 #system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious') internally deprecated in 1.0.24
-print(f'\33]0;Nitro.Self ' + app_version + ' - Developed by: Notorious\a', end='', flush=True)
+print(f'\33]0;Fetus Deletus ' + app_version + ' - Developed by: Notorious\a', end='', flush=True)
 #ctypes.windll.kernel32.SetConsoleTitleW('Fetus Deletus ' + app_version + ' - Developed by: Notorious') internally deprecated in 1.0.15
 
 print(Fore.GREEN + " ███████╗███████╗████████╗██╗   ██╗███████╗    ██████╗ ███████╗██╗     ███████╗████████╗██╗   ██╗███████╗")
