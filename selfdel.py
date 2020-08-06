@@ -11,7 +11,7 @@ import re
 import requests
 
 init()
-app_version = 'v1.0.23'
+app_version = 'v1.0.24'
 
 if getattr(sys, 'frozen', False):
     application_path = os.path.dirname(sys.executable)
@@ -51,7 +51,8 @@ else:
     wlines.close()
     wlines = open(wfile).read().split('\n')
 
-system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious')
+#system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious') internally deprecated in 1.0.24
+print(f'\33]0;Nitro.Self ' + app_version + ' - Developed by: Notorious\a', end='', flush=True)
 #ctypes.windll.kernel32.SetConsoleTitleW('Fetus Deletus ' + app_version + ' - Developed by: Notorious') internally deprecated in 1.0.15
 
 print(Fore.GREEN + " ███████╗███████╗████████╗██╗   ██╗███████╗    ██████╗ ███████╗██╗     ███████╗████████╗██╗   ██╗███████╗")
@@ -119,16 +120,16 @@ async def on_message(message):
                 if throttled == 'True' and t > counter:
                     await message.delete()
                     counter += 1
-                    system('title Fetus Deletus ' + app_version + ' - Deleted: ' + str(f"{counter:,d}") + ' messages.')
+                    print(f'\33]0;Fetus Deletus ' + app_version + ' - Deleted: ' + str(f"{counter:,d}") + ' messages.\a', end='', flush=True)
                 elif throttled == 'False':
                     await message.delete()
                     counter += 1
-                    system('title Fetus Deletus ' + app_version + ' - Deleted: ' + str(f"{counter:,d}") + ' messages.')
+                    print(f'\33]0;Fetus Deletus ' + app_version + ' - Deleted: ' + str(f"{counter:,d}") + ' messages.\a', end='', flush=True)
         msg = "✅`Cleaned " + str(f"{counter:,d}") + " messages.`"
         end = await message.channel.send(msg)
         print('[' + Fore.LIGHTBLUE_EX + time.strftime('%I:%M:%S %p',
                                                       time.localtime()).rstrip() + Fore.RESET + '] - Finished deleting ' + Fore.GREEN + str(f"{counter:,d}") + Fore.RESET + ' messages in ' + Fore.MAGENTA + channame.rstrip() + Fore.RESET + '.')
-        system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious')
+        print(f'\33]0;Fetus Deletus ' + app_version + ' - Developed by: Notorious\a', end='', flush=True)
         await asyncio.sleep(3)
         await end.delete()
     if message.content.startswith(str(cleanallphrase)) and message.author == client.user:
@@ -145,7 +146,7 @@ async def on_message(message):
                         if message.author == client.user and chanid not in(wlines):
                             await message.delete()
                             counter += 1
-                            system('title Fetus Deletus ' + app_version + ' - Deleted: ' + str(f"{counter:,d}") + ' messages.')
+                            print(f'\33]0;Fetus Deletus ' + app_version + ' - Deleted: ' + str(f"{counter:,d}") + ' messages.\a', end='', flush=True)
                         elif chanid in(wlines):
                             skipped += 1
 
@@ -154,7 +155,7 @@ async def on_message(message):
 
             print('[' + Fore.LIGHTBLUE_EX + time.strftime('%I:%M:%S %p ',
                                                           time.localtime()).rstrip() + Fore.RESET + '] - Finished deleting ' + Fore.GREEN + str(f"{counter:,d}") + Fore.RESET + ' and skipped ' + Fore.LIGHTRED_EX + str(f"{skipped:,d}") + Fore.RESET + ' out of ' + Fore.MAGENTA + str(f"{counter2:,d}") + Fore.RESET + '.')
-            system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious')
+            print(f'\33]0;Fetus Deletus ' + app_version + ' - Developed by: Notorious\a', end='', flush=True)
 
     if message.content.startswith(str(wlaphrase)) and message.author == client.user:
         errored = 0
