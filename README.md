@@ -13,3 +13,7 @@ Written in Python 3.8.3
   <li>Delete all messages with a built in White-List ("?all")</li>
 </ul>
 
+# Important
+
+This is a Discord.py self-user script which is technically against Disord ToS, this is mostly for educational purposes. Use at your own risk.
+
