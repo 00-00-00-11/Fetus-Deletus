@@ -11,7 +11,7 @@ import re
 import requests
 
 init()
-app_version = 'v1.0.20'
+app_version = 'v1.0.21'
 
 if getattr(sys, 'frozen', False):
     application_path = os.path.dirname(sys.executable)
@@ -27,13 +27,41 @@ else:
 
 if os == 'Windows':
     system('cls')
-    jdata = json.load(open(application_path + '\\config.json'))
-    wlines = open(application_path + '\\whitelist.txt').read().split('\n')
+    jfile = application_path + '\\config.json'
+    wfile = application_path + '\\whitelist.txt'
+    if os.path.exists(jfile):
+        jdata = json.load(open(jfile))
+    else:
+        jdata = open(jfile, 'w')
+        jdata.write('{\"token\":\"Token_Here\",\"cleanphrase\":\"?del\",\"cleanallphrase\":\"?all\",\"whitelistaddphrase\":\"?wa\",\"whitelistdelphrase\":\"?wd\"}')
+        jdata.close()
+        json.load(open(jfile))
+    if os.path.exists(wfile):
+        wlines = open(wfile).read().split('\n')
+    else:
+        wlines = open(wfile, 'w')
+        wlines.write('')
+        wlines.close()
+        wlines = open(wfile)
 else:
     system('clear')
     print(chr(27) + '[2J')
-    jdata = json.load(open(application_path + '/config.json'))
-    wlines = open(application_path + '/whitelist.txt').read().split('\n')
+    jfile = application_path + '/config.json'
+    wfile = application_path + '/whitelist.txt'
+    if os.path.exists(jfile):
+        jdata = json.load(open(jfile))
+    else:
+        jdata = open(jfile, 'w')
+        jdata.write('{\"token\":\"Token_Here\",\"cleanphrase\":\"?del\",\"cleanallphrase\":\"?all\",\"whitelistaddphrase\":\"?wa\",\"whitelistdelphrase\":\"?wd\"}')
+        jdata.close()
+        jdata = json.load(open(jfile))
+    if os.path.exists(wfile):
+        wlines = open(wfile).read().split('\n')
+    else:
+        wlines = open(wfile, 'w')
+        wlines.write('')
+        wlines.close()
+        wlines = open(wfile).read().split('\n')
 
 system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious')
 #ctypes.windll.kernel32.SetConsoleTitleW('Fetus Deletus ' + app_version + ' - Developed by: Notorious') internally deprecated in 1.0.15
@@ -116,7 +144,7 @@ async def on_message(message):
         await asyncio.sleep(3)
         await end.delete()
     if message.content.startswith(str(cleanallphrase)) and message.author == client.user:
-            wlines = open(application_path + '\\whitelist.txt').read().split('\n')
+            wlines = open(wfile).read().split('\n')
             wlength = len(wlines)-1
             await message.delete()
             print('[' + Fore.LIGHTBLUE_EX + time.strftime('%H:%M:%S %p', time.localtime()).rstrip() + Fore.RESET + '] - Delete phrase: ' + Fore.YELLOW + cleanallphrase + Fore.RESET + ' has been accepted in: ' + Fore.MAGENTA + channame + Fore.RESET + '. Deleting Outbound DM\'s...')
@@ -155,14 +183,14 @@ async def on_message(message):
                                                           time.localtime()).rstrip() + Fore.RESET + '] - White-List phrase: ' + Fore.LIGHTRED_EX + wlaphrase + Fore.RESET + ' syntax not recognized.')
             errored = 1
         if errored != 1:
-            wlines = open(application_path + '\\whitelist.txt').read().split('\n')
+            wlines = open(wfile).read().split('\n')
             wlength = len(wlines)-1
 
             if str(who_to_wl) not in(wlines):
-                f = open(application_path + '\\whitelist.txt', 'a')
+                f = open(wfile, 'a')
                 f.write(str(who_to_wl) + '\n')
                 f.close()
-                wlines = open(application_path + '\\whitelist.txt').read().split('\n')
+                wlines = open(wfile).read().split('\n')
                 wlength = len(wlines)-1
                 print('[' + Fore.LIGHTBLUE_EX + time.strftime('%H:%M:%S %p',
                                                               time.localtime()).rstrip() + Fore.RESET + '] - User ID: ' + Fore.GREEN + str(who_to_wl) + Fore.RESET + ' has been added to the White-List! Users Loaded: ' + Fore.MAGENTA + str(f"{wlength:,d}") + Fore.RESET)
@@ -185,18 +213,18 @@ async def on_message(message):
                                                           time.localtime()).rstrip() + Fore.RESET + '] - White-List phrase: ' + Fore.LIGHTRED_EX + wldphrase + Fore.RESET + ' syntax not recognized.')
             errored = 1
         if errored != 1:
-            wlines = open(application_path + '\\whitelist.txt').read().split('\n')
+            wlines = open(wfile).read().split('\n')
             wlength = len(wlines)-1
 
             if str(who_to_wl) in (wlines):
-                with open(application_path + '\\whitelist.txt', "r") as f:
+                with open(wfile, "r") as f:
                     lines = f.readlines()
-                with open(application_path + '\\whitelist.txt', "w") as f:
+                with open(wfile, "w") as f:
                     for line in lines:
                         if line.strip("\n") != str(who_to_wl):
                             f.write(line)
 
-                wlines = open(application_path + '\\whitelist.txt').read().split('\n')
+                wlines = open(wfile).read().split('\n')
                 wlength = len(wlines)-1
                 print('[' + Fore.LIGHTBLUE_EX + time.strftime('%H:%M:%S %p',
                                                                     time.localtime()).rstrip() + Fore.RESET + '] - User ID: ' + Fore.LIGHTRED_EX + str(who_to_wl) + Fore.RESET + ' has been removed from the White-List! Users Loaded: ' + Fore.MAGENTA + str(f"{wlength:,d}") + Fore.RESET)
