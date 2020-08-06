@@ -1,4 +1,7 @@
 # Fetus-Deletus
+
+<img src="https://noto.cf/fd21.png">
+
 Discord.py self-message deleter.
 
 Written in Python 3.8.3
