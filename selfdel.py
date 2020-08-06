@@ -11,7 +11,7 @@ import re
 import requests
 
 init()
-app_version = 'v1.0.22'
+app_version = 'v1.0.23'
 
 if getattr(sys, 'frozen', False):
     application_path = os.path.dirname(sys.executable)
@@ -29,39 +29,27 @@ if os == 'Windows':
     system('cls')
     jfile = application_path + '\\config.json'
     wfile = application_path + '\\whitelist.txt'
-    if os.path.exists(jfile):
-        jdata = json.load(open(jfile))
-    else:
-        jdata = open(jfile, 'w')
-        jdata.write('{\"token\":\"Token_Here\",\"cleanphrase\":\"?del\",\"cleanallphrase\":\"?all\",\"whitelistaddphrase\":\"?wa\",\"whitelistdelphrase\":\"?wd\"}')
-        jdata.close()
-        json.load(open(jfile))
-    if os.path.exists(wfile):
-        wlines = open(wfile).read().split('\n')
-    else:
-        wlines = open(wfile, 'w')
-        wlines.write('')
-        wlines.close()
-        wlines = open(wfile)
 else:
     system('clear')
     print(chr(27) + '[2J')
     jfile = application_path + '/config.json'
     wfile = application_path + '/whitelist.txt'
-    if os.path.exists(jfile):
-        jdata = json.load(open(jfile))
-    else:
-        jdata = open(jfile, 'w')
-        jdata.write('{\"token\":\"Token_Here\",\"cleanphrase\":\"?del\",\"cleanallphrase\":\"?all\",\"whitelistaddphrase\":\"?wa\",\"whitelistdelphrase\":\"?wd\"}')
-        jdata.close()
-        jdata = json.load(open(jfile))
-    if os.path.exists(wfile):
-        wlines = open(wfile).read().split('\n')
-    else:
-        wlines = open(wfile, 'w')
-        wlines.write('')
-        wlines.close()
-        wlines = open(wfile).read().split('\n')
+
+
+if os.path.exists(jfile):
+    jdata = json.load(open(jfile))
+else:
+    jdata = open(jfile, 'w')
+    jdata.write('{\"token\":\"Token_Here\",\"cleanphrase\":\"?del\",\"cleanallphrase\":\"?all\",\"whitelistaddphrase\":\"?wa\",\"whitelistdelphrase\":\"?wd\"}')
+    jdata.close()
+    jdata = json.load(open(jfile))
+if os.path.exists(wfile):
+    wlines = open(wfile).read().split('\n')
+else:
+    wlines = open(wfile, 'w')
+    wlines.write('')
+    wlines.close()
+    wlines = open(wfile).read().split('\n')
 
 system('title Fetus Deletus ' + app_version + ' - Developed by: Notorious')
 #ctypes.windll.kernel32.SetConsoleTitleW('Fetus Deletus ' + app_version + ' - Developed by: Notorious') internally deprecated in 1.0.15
