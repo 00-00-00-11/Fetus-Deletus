@@ -11,7 +11,7 @@ import re
 import requests
 
 init()
-app_version = 'v1.0.25'
+app_version = 'v1.0.26'
 
 if getattr(sys, 'frozen', False):
     application_path = os.path.dirname(sys.executable)
@@ -104,7 +104,7 @@ async def on_message(message):
         await message.delete()
         if re.search(r'[^\S\n\t]+', message.content) is not None:
             t = message.content[len(cleanphrase):].strip()
-            t = re.sub(r'[`!@#$%^&*()_+=-~ ?/\\.,;{}qwertyuiopasdfghjklzxcvbnm\']', '', t)
+            t = re.sub(r'[a-zA-Z`!@#$%^&*()_+=-~ ?/\\.,;{}\']', '', t)
             t = int(t)
             throttled = 'True'
             print('[' + Fore.LIGHTBLUE_EX + time.strftime('%I:%M:%S %p',
@@ -132,12 +132,22 @@ async def on_message(message):
         print(f'\33]0;Fetus Deletus ' + app_version + ' - Developed by: Notorious\a', end='', flush=True)
         await asyncio.sleep(3)
         await end.delete()
+
     if message.content.startswith(str(cleanallphrase)) and message.author == client.user:
             wlines = open(wfile).read().split('\n')
             wlength = len(wlines)-1
             await message.delete()
             print('[' + Fore.LIGHTBLUE_EX + time.strftime('%I:%M:%S %p', time.localtime()).rstrip() + Fore.RESET + '] - Delete phrase: ' + Fore.YELLOW + cleanallphrase + Fore.RESET + ' has been accepted in: ' + Fore.MAGENTA + channame + Fore.RESET + '. Deleting Outbound DM\'s...')
             for channel in client.private_channels:
+                ugly_chan = str(channel)
+                cur_chan_id = str(channel.id).rstrip()
+                if 'Direct Message with ' in ugly_chan:
+                    current_chan = ugly_chan.rsplit('Direct Message with ', 1)[1].rstrip()
+                else:
+                    current_chan = ugly_chan
+                if cur_chan_id not in(wlines):
+                    print('[' + Fore.LIGHTBLUE_EX + time.strftime('%I:%M:%S %p',
+                                                        time.localtime()).rstrip() + Fore.RESET + '] - Scanning messages in: ' + Fore.MAGENTA + str(current_chan) + Fore.RESET + '.')
                 if message.channel.type is discord.ChannelType.private or discord.ChannelType.text or discord.ChannelType.group:
                  async for message in channel.history(limit=99999):
                     try:
