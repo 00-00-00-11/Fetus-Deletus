@@ -4,7 +4,7 @@
 
 Discord.py self-message deleter.
 
-Written in Python 3.8.3
+Written in Python 3.8.5
 
 <ul>Features:
   <li>Self-generating config file.</li>
