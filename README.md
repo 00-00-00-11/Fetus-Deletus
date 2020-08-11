@@ -1,6 +1,5 @@
 # Fetus-Deletus
 
-<img src="https://noto.cf/fd21.png">
 <a href="https://noto.cf/fd21.png"><img src="https://noto.cf/fd21.png" width="50%" height="50%" alt="Screenshot"></a>
 
 Discord.py self-message deleter.
