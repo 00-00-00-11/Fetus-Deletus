@@ -8,7 +8,7 @@ Written in Python 3.8.5
 
 <ul>Features:
   <li>Self-generating config file.</li>
-  <li>Optional Integer Argument (".d 30") (.wa @user or user_id)</li>
+  <li>Optional Integer Argument (.d 30) (.wa @user or user_id)</li>
   <li>White-List</li>
   <li>Delete all messages with a built in White-List (".dall")</li>
 </ul>
