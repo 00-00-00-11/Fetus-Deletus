@@ -92,7 +92,7 @@ ignore_del_command = str(jdata['ignore_del_command'])
 
 r = requests.get('https://raw.githubusercontent.com/noto-rious/Fetus-Deletus/master/version.txt').text
 if r != version_num:
-    print(red + 'Looks like you may not be running the most current version. Check https://noto.cf/deb for an update!' + res)
+    print(red + 'Looks like you may not be running the most current version. Check https://noto.cf/fd for an update!' + res)
     print()
 
 if token == 'Token_Here':
