@@ -1,0 +1,10 @@
+{
+"token":"Token_Here",
+"command_prefix":".",
+"del_command":"d",
+"del_all_dms_command":"dd",
+"del_all_servers_command":"ds",
+"del_all_command":"da",
+"ignore_add_command":"ia",
+"ignore_del_command":"id"
+}
