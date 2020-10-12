@@ -1,5 +1,6 @@
-# Fetus-Deletus v2
-Fetus Deletus is a Discord.py self-message deleter. Version 2 has been completely recoded from scratch in Python 3.8
+# Fetus Deletus v2
+Fetus Deletus is a Discord.py self-message deleter.  
+Version 2 has been completely recoded from scratch in Python 3.8
 
 [![GitHub release](https://img.shields.io/github/v/release/noto-rious/Fetus-Deletus)](https://github.com/noto-rious/Fetus-Deletus/releases)
 
