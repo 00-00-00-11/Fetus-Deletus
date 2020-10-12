@@ -33,7 +33,7 @@ res = attr('reset')
 ignoreChannelCount = 0
 isBusy = False
 
-version_num = 'v2.0.1'
+version_num = 'v2.0.2'
 print(f'\33]0;Fetus Deletus ' + version_num + ' - Developed by: Notorious\a', end='', flush=True)
 
 print(green
@@ -133,7 +133,7 @@ client = discord.Client()
 def printWelcome():
     print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Welcome, ' + green + BOLD + str(client.user) + res + '.')
     print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You are ignoring ' + green + BOLD + f'{ignoreChannelCount:,}' + res + ' channel(s) and ' + green + BOLD + str(ignoreGuildCount) + res + ' server(s)')
-    print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Your commands are ' + green + BOLD + command_prefix + del_command + res + ',' + green + BOLD + command_prefix + del_all_dms_command + res + ', ' + green + BOLD + del_all_servers_command + res + ', ' + green + BOLD +  command_prefix + del_all_command + res + ', ' + green + BOLD +  command_prefix + ignore_add_command + res + ' and ' + green + BOLD +  command_prefix + ignore_del_command + res)
+    print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Your commands are ' + green + BOLD + command_prefix + del_command + res + ',' + green + BOLD + command_prefix + del_all_dms_command + res + ', ' + green + BOLD + command_prefix + del_all_servers_command + res + ', ' + green + BOLD +  command_prefix + del_all_command + res + ', ' + green + BOLD +  command_prefix + ignore_add_command + res + ' and ' + green + BOLD +  command_prefix + ignore_del_command + res)
     print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Monitoring ' + green + BOLD + calc_Chan() + res + ' channels in ' + green + BOLD + f'{len(client.guilds):,}' + res + ' servers and ' + green + BOLD + f'{len(client.users):,}' + res + ' DM\'s.')
     print()
 
@@ -144,7 +144,7 @@ def progress(count, total, status=''):
     percents = round(100.0 * count / float(total), 1)
     bar =  '='  * filled_len + '-' * (bar_len - filled_len)
     sys.stdout.write("\033[K")
-    sys.stdout.write('\r[%s %s%s] %s\r' % (bar, percents, '%', status))
+    sys.stdout.write('\r[%s %s%s] %s\r' % (green + bar + res, yellow + str(percents), '%' + res, status))
     
     sys.stdout.flush()
 
@@ -192,7 +192,7 @@ async def AddGuildIgnore(guild):
             print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + str(guild.name) + res + ' to the server ignore list.')
             print()
     else:
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(guild.name) + res + ' is already in the ignore list.')
+        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(guild.name) + res + ' is already in the server ignore list.')
         print()
 
 @client.event
@@ -206,7 +206,7 @@ async def AddChannelIgnore(channel):
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + str(channel) + res + ' to the channel ignore list.')
         print()
     else:
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(channel) + res + ' is already in the ignore list.')
+        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(channel) + res + ' is already in the channel ignore list.')
         print()
 
 @client.event
