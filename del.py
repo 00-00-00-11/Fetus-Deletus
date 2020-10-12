@@ -33,7 +33,7 @@ res = attr('reset')
 ignoreChannelCount = 0
 isBusy = False
 
-version_num = 'v2.0.0'
+version_num = 'v2.0.1'
 print(f'\33]0;Fetus Deletus ' + version_num + ' - Developed by: Notorious\a', end='', flush=True)
 
 print(green
@@ -89,6 +89,11 @@ ignore_add_command = str(jdata['ignore_add_command'])
 
 os.environ["rg"] = str(jdata['ignore_del_command'])
 ignore_del_command = str(jdata['ignore_del_command'])
+
+r = requests.get('https://raw.githubusercontent.com/noto-rious/Fetus-Deletus/master/version.txt').text
+if r != version_num:
+    print(red + 'Looks like you may not be running the most current version. Check https://noto.cf/deb for an update!' + res)
+    print()
 
 if token == 'Token_Here':
         print (red + 'You haven\'t properly configured the \'settings.json\' file. Please put your Discord token in settings.json using the correct JSON syntax and then run the program again.' + res)
@@ -185,8 +190,10 @@ async def AddGuildIgnore(guild):
             f.write(str(guild.id) + '\n')
             f.close()
             print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + str(guild.name) + res + ' to the server ignore list.')
+            print()
     else:
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(guild.name) + res + ' is already in the ignore list.')
+        print()
 
 @client.event
 async def AddChannelIgnore(channel):
@@ -197,8 +204,10 @@ async def AddChannelIgnore(channel):
             f.write(str(channel.id) + '\n')
             f.close()
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + str(channel) + res + ' to the channel ignore list.')
+        print()
     else:
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(channel) + res + ' is already in the ignore list.')
+        print()
 
 @client.event
 async def DelGuildIgnore(guild):
@@ -214,8 +223,10 @@ async def DelGuildIgnore(guild):
                     
         ignoreGuildList = open(igfile).read().split('\n')
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Removed ' + green + BOLD + str(guild.name) + res + ' from the server ignore list.')
+        print()
     else:
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(guild.name) + res + ' is not in the server ignore list.')
+        print()
 
 @client.event
 async def DelChannelIgnore(channel):
@@ -231,8 +242,10 @@ async def DelChannelIgnore(channel):
                     
         ignoreChannelList = open(ifile).read().split('\n')
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Removed ' + green + BOLD + str(channel) + res + ' from the channel ignore list.')
+        print()
     else:
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(channel) + res + ' is not in the channel ignore list.')
+        print()
 
 @client.event
 async def on_connect():
@@ -377,7 +390,7 @@ async def DeleteAllDMs():
                         counter += 1
                 except Exception as e:
                         pass
-                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages. - in ' + str(tmp_chan) + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res)
+                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(tmp_chan) + res)
         i += 1
 
     progress(maxLen, maxLen, status=' FINISHED! Elapsed Time: ' + green + BOLD + calc_time(start_time) + res + ' - Total Deleted: ' + green + BOLD + f'{counter:,}' + res)
@@ -400,7 +413,7 @@ async def DeleteAllServers():
                         if message.author == client.user:
                             await message.delete()
                             counter += 1
-                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages. - in ' + green + BOLD + str(guild) + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res)
+                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(guild) + res)
                 except Exception as e:
                     pass
         i += 1
@@ -433,7 +446,7 @@ async def DeleteAll():
                         counter += 1
                 except Exception as e:
                         pass
-                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages. - in ' + str(tmp_chan) + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res)
+                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(tmp_chan) + res)
         i += 1
     if i == maxLen:
         progress(i, maxLen, status=' FINISHED! Elapsed Time: ' + green + BOLD + calc_time(start_time) + res + ' - Total Deleted: ' + green + BOLD + f'{counter:,}' + res)
@@ -447,7 +460,7 @@ async def DeleteAll():
                         if message.author == client.user:
                             await message.delete()
                             counter += 1
-                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages. - in ' + green + BOLD + str(guild) + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res)
+                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(guild) + res)
                 except Exception as e:
                     pass
         i += 1
