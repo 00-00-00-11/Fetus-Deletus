@@ -5,8 +5,8 @@ Fetus Deletus is a Discord.py self-message deleter. Version 2 has been completel
 
 ### Features 
 * Cross-platform support for Windows and Linux
-* Has features that allow you to Delete all sent messages, all sent messages in servers, or all sent messages in dm.
-* Has an ignore list for both guilds and dm's
+* Has features that allow you to Delete all sent messages, all sent messages in Servers, or all sent messages in DM.
+* Has an ignore list for both Servers and DM's
 
 ![](screenshot.png)
 
