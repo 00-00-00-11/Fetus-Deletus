@@ -33,7 +33,7 @@ res = attr('reset')
 ignoreChannelCount = 0
 isBusy = False
 
-version_num = 'v2.0.2'
+version_num = 'v2.0.3'
 print(f'\33]0;Fetus Deletus ' + version_num + ' - Developed by: Notorious\a', end='', flush=True)
 
 print(green
@@ -175,11 +175,15 @@ def ChanID(message):
 
 def Chan(message):
     if isinstance(message.channel, discord.DMChannel):
-        return 'DM with ' + green + BOLD + str(message.channel.recipient) + res
+        return 'DM with ' + green + BOLD + format_name(str(message.channel.recipient)) + res
     elif isinstance(message.channel, discord.TextChannel):
-        return 'in ' +  green + BOLD +  str(message.guild) + res
+        return 'in ' +  green + BOLD +  format_name(str(message.guild)) + res
     elif isinstance(message.channel, discord.GroupChannel):
-        return 'Group DM: ' +  green + BOLD +  str(message.channel) + res
+        return 'Group DM: ' +  green + BOLD +  format_name(str(message.channel)) + res
+
+def format_name(name):
+    name = (name[:27] + '...') if len(name) > 30 else name
+    return name
 
 @client.event
 async def AddGuildIgnore(guild):
@@ -189,11 +193,13 @@ async def AddGuildIgnore(guild):
         with open(igfile, 'a') as f:
             f.write(str(guild.id) + '\n')
             f.close()
-            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + str(guild.name) + res + ' to the server ignore list.')
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + format_name(str(guild.name)) + res + ' to the server ignore list.')
             print()
     else:
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(guild.name) + res + ' is already in the server ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + format_name(str(guild.name)) + res + ' is already in the server ignore list.')
+            print()
 
 @client.event
 async def AddChannelIgnore(channel):
@@ -203,11 +209,13 @@ async def AddChannelIgnore(channel):
         with open(ifile, 'a') as f:
             f.write(str(channel.id) + '\n')
             f.close()
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + str(channel) + res + ' to the channel ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Added ' + green + BOLD + format_name(str(channel)) + res + ' to the channel ignore list.')
+            print()
     else:
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(channel) + res + ' is already in the channel ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + format_name(str(channel)) + res + ' is already in the channel ignore list.')
+            print()
 
 @client.event
 async def DelGuildIgnore(guild):
@@ -222,11 +230,13 @@ async def DelGuildIgnore(guild):
                         f.write(line)
                     
         ignoreGuildList = open(igfile).read().split('\n')
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Removed ' + green + BOLD + str(guild.name) + res + ' from the server ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Removed ' + green + BOLD + format_name(str(guild.name)) + res + ' from the server ignore list.')
+            print()
     else:
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(guild.name) + res + ' is not in the server ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + format_name(str(guild.name)) + res + ' is not in the server ignore list.')
+            print()
 
 @client.event
 async def DelChannelIgnore(channel):
@@ -241,11 +251,13 @@ async def DelChannelIgnore(channel):
                         f.write(line)
                     
         ignoreChannelList = open(ifile).read().split('\n')
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Removed ' + green + BOLD + str(channel) + res + ' from the channel ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Removed ' + green + BOLD + format_name(str(channel)) + res + ' from the channel ignore list.')
+            print()
     else:
-        print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + str(channel) + res + ' is not in the channel ignore list.')
-        print()
+        if isBusy != True:
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + red + BOLD + format_name(str(channel)) + res + ' is not in the channel ignore list.')
+            print()
 
 @client.event
 async def on_connect():
@@ -274,24 +286,16 @@ async def on_message(message):
         printWelcome()
 
     if message.content.startswith(command_prefix + ignore_add_command) and message.author == client.user:
-        if isBusy == True:
-            await DeleteCommand(message)
-            return
-
-        if message.channel.type == discord.ChannelType.text:
-            await AddGuildIgnore(message.guild)
-        elif message.channel.type == discord.ChannelType.private:
+        if isinstance(message.channel, discord.DMChannel): 
             await AddChannelIgnore(message.channel.recipient)
-        else:
+        elif isinstance(message.channel, discord.GroupChannel):
             await AddChannelIgnore(message.channel)
+        elif isinstance(message.channel, discord.TextChannel):
+            await AddGuildIgnore(message.guild)
 
         await DeleteCommand(message)
 
     if message.content.startswith(command_prefix + ignore_del_command) and message.author == client.user and isBusy == False:
-        if isBusy == True:
-            await DeleteCommand(message)
-            return
-
         if isinstance(message.channel, discord.DMChannel): 
             await DelChannelIgnore(message.channel.recipient)
         elif isinstance(message.channel, discord.GroupChannel):
@@ -331,6 +335,7 @@ async def on_message(message):
         print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + green + BOLD + command_prefix + del_all_servers_command + res + ' accepted in ' + Chan(message) + res + '. Please wait...')
         await DeleteAllServers()
         print()
+
     elif message.content.startswith(command_prefix + del_command + ' ')  and message.author == client.user:
         if isBusy == True:
             await DeleteCommand(message)
@@ -341,15 +346,15 @@ async def on_message(message):
             if str(ChanID(message)) in(ignoreChannelList):
                 print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You can\'t delete messages sent to ' + red + BOLD + str(Chan(message)) + res + '.')
             if str(ChanID(message)) in(ignoreGuildList):
-                print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You can\'t delete messages sent to ' + red + BOLD + str(message.guild.name) + res + '.')
+                print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You can\'t delete messages sent to ' + red + BOLD + format_name(str(message.guild.name)) + res + '.')
         else:
-            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Deleting messages sent to ' + green + BOLD + str(Chan(message)) + res + '. Please wait...')
             msg = message.content
             t = msg[len(command_prefix + del_command):].strip()
             t = re.sub('[^0-9]','', t)
-            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> ' + green + BOLD + command_prefix + del_command + ' ' + green + BOLD + str(t) + res + ' accepted in ' + Chan(message) + res + '. Please wait...')
+            print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Deleting messages sent to ' + green + BOLD + str(Chan(message)) + res + '. Please wait...')
             await DeleteMessages(message,t)
             print()
+
     elif message.content == command_prefix + del_command  and message.author == client.user:
         if isBusy == True:
             await DeleteCommand(message)
@@ -360,7 +365,7 @@ async def on_message(message):
             if str(ChanID(message)) in(ignoreChannelList):
                 print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You can\'t delete messages sent to ' + red + BOLD + str(Chan(message)) + res + '.')
             if str(ChanID(message)) in(ignoreGuildList):
-                print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You can\'t delete messages sent to ' + red + BOLD + str(message.guild.name) + res + '.')
+                print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> You can\'t delete messages sent to ' + red + BOLD + format_name(str(message.guild.name)) + res + '.')
         else:
             print(res + magenta + time.strftime('%I:%M %p', time.localtime()).rstrip() + res + ' -> Fetus Deletus -> Deleting messages sent to ' + green + BOLD + str(Chan(message)) + res + '. Please wait...')
             await DeleteMessages(message,99999)
@@ -377,10 +382,10 @@ async def DeleteAllDMs():
     maxLen = len(client.private_channels)
     for channel in client.private_channels:
         if isinstance(channel, discord.DMChannel): 
-            tmp_chan = res + 'DM with ' + green + BOLD + str(channel.recipient)
+            tmp_chan = res + 'DM with ' + green + BOLD + format_name(str(channel.recipient))
             theID = channel.recipient.id
         elif isinstance(channel, discord.GroupChannel):
-            tmp_chan =  res + 'Group DM: ' + green + BOLD + str(channel)
+            tmp_chan =  res + 'Group DM: ' + green + BOLD + format_name(str(channel))
             theID = channel.id
         if str(theID) not in(ignoreChannelList):
             async for message in channel.history(limit=None):
@@ -390,7 +395,7 @@ async def DeleteAllDMs():
                         counter += 1
                 except Exception as e:
                         pass
-                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(tmp_chan) + res)
+                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + tmp_chan + res)
         i += 1
 
     progress(maxLen, maxLen, status=' FINISHED! Elapsed Time: ' + green + BOLD + calc_time(start_time) + res + ' - Total Deleted: ' + green + BOLD + f'{counter:,}' + res)
@@ -413,7 +418,7 @@ async def DeleteAllServers():
                         if message.author == client.user:
                             await message.delete()
                             counter += 1
-                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(guild) + res)
+                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + format_name(str(guild)) + res)
                 except Exception as e:
                     pass
         i += 1
@@ -433,10 +438,10 @@ async def DeleteAll():
     maxLen = len(client.private_channels) + len(client.guilds)
     for channel in client.private_channels:
         if isinstance(channel, discord.DMChannel): 
-            tmp_chan = res + 'DM with ' + green + BOLD + str(channel.recipient)
+            tmp_chan = res + 'DM with ' + green + BOLD + format_name(str(channel.recipient))
             theID = channel.recipient.id
         elif isinstance(channel, discord.GroupChannel):
-            tmp_chan =  res + 'Group DM: ' + green + BOLD + str(channel)
+            tmp_chan =  res + 'Group DM: ' + green + BOLD + format_name(str(channel))
             theID = channel.id
         if str(theID) not in(ignoreChannelList):
             async for message in channel.history(limit=None):
@@ -446,7 +451,7 @@ async def DeleteAll():
                         counter += 1
                 except Exception as e:
                         pass
-                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(tmp_chan) + res)
+                progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + tmp_chan + res)
         i += 1
     if i == maxLen:
         progress(i, maxLen, status=' FINISHED! Elapsed Time: ' + green + BOLD + calc_time(start_time) + res + ' - Total Deleted: ' + green + BOLD + f'{counter:,}' + res)
@@ -460,7 +465,7 @@ async def DeleteAll():
                         if message.author == client.user:
                             await message.delete()
                             counter += 1
-                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + str(guild) + res)
+                        progress(i, maxLen, status='Deleted ' + green + BOLD + f'{counter:,}'  + res + ' sent Messages.' + res + ' - Elapsed: ' + green + BOLD + calc_time(start_time) + res + ' - in ' + green + BOLD + format_name(str(guild)) + res)
                 except Exception as e:
                     pass
         i += 1
