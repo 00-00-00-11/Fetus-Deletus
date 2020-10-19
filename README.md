@@ -2,7 +2,7 @@
 Fetus Deletus is a Discord.py self-message deleter.  
 Version 2 has been completely recoded from scratch in Python 3.8
 
-[![GitHub release](https://img.shields.io/github/v/release/noto-rious/Fetus-Deletus)](https://github.com/noto-rious/Fetus-Deletus/releases)
+[![GitHub release](https://img.shields.io/github/v/release/noto-rious/Fetus-Deletus?style=plastic)](https://github.com/noto-rious/Fetus-Deletus/releases) ![GitHub All Releases](https://img.shields.io/github/downloads/noto-rious/Fetus-Deletus/total?style=plastic)
 
 ### Features 
 * Cross-platform support for Windows and Linux
@@ -27,7 +27,11 @@ Edit `settings.json`
 ```
 ***
 ### How to obtain your token
-https://github.com/Tyrrrz/DiscordChatExporter/wiki/Obtaining-Token-and-Channel-IDs#how-to-get-a-user-token
+**1.** Press **Ctrl+Shift+I** (⌘⌥I on Mac) on Discord to show developer tools<br/>
+**2.** Navigate to the **Application** tab<br/>
+**3.** Select **Local Storage** > **https://discordapp.com** on the left<br/>
+**4.** Press **Ctrl+R** (⌘R) to reload<br/>
+**5.** Find **token** at the bottom and copy the value<br/>
 ***
 ### Disclaimer
 This is a self-bot which is against Discord ToS. Use it at your own risk.
