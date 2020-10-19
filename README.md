@@ -21,8 +21,8 @@ Edit `settings.json`
 "del_all_dms_command":"dd",         //this command deletes all sent dm messages for all users.
 "del_all_servers_command":"ds",     //this command deletes all sent server messages for all servers.
 "del_all_command":"da",             //this command deletes all sent dm and server messages for all users and all servers.
-"ignore_add_command":"ia",          //type this command in the channel of the dm you would like to ignore.
-"ignore_add_server_command":"ias",  //type this command in the channel of the guild you would like to ignore.
+"ignore_add_command":"ia",          //type this command in the channel of the dm/guild you would like to ignore the channel.
+"ignore_add_server_command":"ias",  //type this command in any channel in the guild you would like to ignore the guild.
 "ignore_del_command":"id"           //type this command in the channel of the dm/guild you would like to unignore.
 }
 ```
