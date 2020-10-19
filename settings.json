@@ -6,5 +6,6 @@
 "del_all_servers_command":"ds",
 "del_all_command":"da",
 "ignore_add_command":"ia",
+"ignore_add_server_command":"ias",
 "ignore_del_command":"id"
 }
