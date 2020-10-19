@@ -15,14 +15,15 @@ Version 2 has been completely recoded from scratch in Python 3.8
 Edit `settings.json`
 ```
 {
-"token":"Token_Here",             //put your discord authorization token here(see instructions on how to obtain down below)
-"command_prefix":".",             //this is the command prefix, the character before each command that will be used.
-"del_command":"d",                //this command deletes all or a custom numerical variable(i.e. .d 2) sent messages in current channel.
-"del_all_dms_command":"dd",       //this command deletes all sent dm messages for all users.
-"del_all_servers_command":"ds",   //this command deletes all sent server messages for all servers.
-"del_all_command":"da",           //this command deletes all sent dm and server messages for all users and all servers.
-"ignore_add_command":"ia",        //type this command in the channel of the dm/guild you would like to ignore.
-"ignore_del_command":"id"         //type this command in the channel of the dm/guild you would like to unignore.
+"token":"Token_Here",               //put your discord authorization token here(see instructions on how to obtain down below)
+"command_prefix":".",               //this is the command prefix, the character before each command that will be used.
+"del_command":"d",                  //this command deletes all or a custom numerical variable(i.e. .d 2) sent messages in current channel.
+"del_all_dms_command":"dd",         //this command deletes all sent dm messages for all users.
+"del_all_servers_command":"ds",     //this command deletes all sent server messages for all servers.
+"del_all_command":"da",             //this command deletes all sent dm and server messages for all users and all servers.
+"ignore_add_command":"ia",          //type this command in the channel of the dm you would like to ignore.
+"ignore_add_server_command":"ias",  //type this command in the channel of the guild you would like to ignore.
+"ignore_del_command":"id"           //type this command in the channel of the dm/guild you would like to unignore.
 }
 ```
 ***
