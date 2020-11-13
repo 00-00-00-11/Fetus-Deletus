@@ -6,7 +6,8 @@ Version 2 has been completely recoded from scratch in Python 3.8
 
 ### Features 
 * Cross-platform support for Windows and Linux
-* Has features that allow you to Delete all sent messages, all sent messages in Servers, or all sent messages in DM.
+* Has features that allow you to Delete all sent messages Groups, Servers, or a DM.
+* Supports numerical variables (i.e: .d 20 deletes 20 most recent messages)
 * Has an ignore list for both Servers and DM's
 
 ![](screenshot.png)
